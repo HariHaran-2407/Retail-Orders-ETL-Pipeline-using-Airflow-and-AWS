@@ -1,0 +1,22 @@
+# Virtual Environment
+.venv/
+
+# Environment Variables
+.env
+
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+
+# Airflow Logs
+logs/
+
+# VS Code
+.vscode/
+
+# Mac/Linux
+.DS_Store
+
+# Jupyter
+.ipynb_checkpoints/
