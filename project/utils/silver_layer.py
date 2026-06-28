@@ -14,8 +14,6 @@ class SilverLayer():
 
         aws_access_key_id=os.getenv("aws_access_key_id")
         aws_secret_access_key=os.getenv("aws_secret_access_key")
-        print(os.getenv("aws_access_key_id"))
-        print(os.getenv("aws_secret_access_key"))
         glue_client=  boto3.client(
             'glue',
             region_name='ap-south-2',

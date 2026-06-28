@@ -6,8 +6,8 @@ import sys
 sys.path.append(os.path.join(os.path.dirname(__file__),'..'))
 
 from utils.bronze_layer import BronzeLayer
+from utils.silver_layer import SilverLayer
 
-date_folder = datetime.now().strftime("%Y-%m-%d")
 
 @dag(
     schedule='@daily',
@@ -24,6 +24,7 @@ def retail_sales_project():
             "https://raw.githubusercontent.com/HariHaran-2407/Retail-Orders-ETL-Pipeline-using-Airflow-and-AWS/refs/heads/main/dataset/orders.csv"
         ]
         obj=BronzeLayer()
+        date_folder = datetime.now().strftime("%Y-%m-%d")
 
         for url in urls:
             fetched_data=obj.ingest_data_api(url)
@@ -31,8 +32,18 @@ def retail_sales_project():
 
         return date_folder
     
-    extract_load_s3()
+    @task(retries=3,retry_delay=timedelta(seconds=5))
+    def trigger_silver_layer_spark_job(ti):
+        last_load_date=ti.xcom_pull(task_ids='extract_load_s3',key='return_value')
+        obj=SilverLayer()
+        job_run_id = obj.trigger_silver_layer('Retail_Sales_Silver_Layer',last_load_date)
+        print(f"Glue job triggered with JobRunId: {job_run_id}")
+
+        return last_load_date
     
+    extract_Bronze = extract_load_s3()
+    transform_Silver = trigger_silver_layer_spark_job()
+
+    extract_Bronze >> transform_Silver
+
 retail_sales_project()
-
-
