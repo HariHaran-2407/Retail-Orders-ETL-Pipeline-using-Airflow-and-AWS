@@ -7,6 +7,7 @@ sys.path.append(os.path.join(os.path.dirname(__file__),'..'))
 
 from utils.bronze_layer import BronzeLayer
 from utils.silver_layer import SilverLayer
+from utils.gold_layer import GoldLayer
 
 
 @dag(
@@ -41,9 +42,47 @@ def retail_sales_project():
 
         return last_load_date
     
+    @task
+    def trigger_customer_crawler(ti):
+        obj=SilverLayer()
+        response = obj.trigger_crawler('customer_crawler')
+        print(response)
+    
+    @task
+    def trigger_orders_crawler(ti):
+        obj=SilverLayer()
+        response = obj.trigger_crawler('orders_crawler')
+        print(response)
+    
+    @task
+    def trigger_order_items_crawler(ti):
+        obj=SilverLayer()
+        response = obj.trigger_crawler('order_items_crawler')
+        print(response)
+    
+    @task
+    def trigger_products_crawler(ti):
+        obj=SilverLayer()
+        response = obj.trigger_crawler('products_crawler')
+        print(response)
+    
+    @task(retries=3,retry_delay=timedelta(seconds=5))
+    def trigger_databricks_job(ti):
+        last_load_date=ti.xcom_pull(task_ids='trigger_silver_layer_spark_job',key='return_value')
+        obj=GoldLayer()
+        reponse = obj.trigger_databricks_job(401738252534212,last_load_date)
+        print(reponse)
+
+    
     extract_Bronze = extract_load_s3()
     transform_Silver = trigger_silver_layer_spark_job()
 
-    extract_Bronze >> transform_Silver
+    customer_crawler=trigger_customer_crawler()
+    orders_crawler=trigger_orders_crawler()
+    order_items_crawler=trigger_order_items_crawler()
+    products_crawler=trigger_products_crawler()
+    databricks = trigger_databricks_job()
+
+    extract_Bronze >> transform_Silver >> [customer_crawler,orders_crawler,order_items_crawler,products_crawler] >> databricks
 
 retail_sales_project()
