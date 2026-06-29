@@ -6,7 +6,7 @@ An end-to-end cloud-native Data Engineering project implementing the **Medallion
 
 # Project Architecture
 
-![Architecture]<img width="2116" height="1010" alt="image" src="https://github.com/user-attachments/assets/f20f01f8-e059-4549-bb7d-d30d4dabbee4" />
+<img width="2116" height="1010" alt="image" src="https://github.com/user-attachments/assets/f20f01f8-e059-4549-bb7d-d30d4dabbee4" />
 
 
 ---
@@ -93,8 +93,8 @@ Business-ready analytical tables
 
 # Airflow DAG
 
-![Airflow DAG]<img width="486" height="255" alt="image" src="https://github.com/user-attachments/assets/f1838ddc-d5ea-47b0-8553-45a3206e08fd" />
-![Airflow DAG - Successful run]<img width="910" height="413" alt="image" src="https://github.com/user-attachments/assets/91c98968-b3d8-4fa1-b93a-226ca6741a06" />
+<img width="486" height="255" alt="image" src="https://github.com/user-attachments/assets/f1838ddc-d5ea-47b0-8553-45a3206e08fd" />
+<img width="910" height="413" alt="image" src="https://github.com/user-attachments/assets/91c98968-b3d8-4fa1-b93a-226ca6741a06" />
 
 
 The Airflow DAG orchestrates:
@@ -108,7 +108,7 @@ The Airflow DAG orchestrates:
 
 # AWS Glue Crawlers
 
-![Glue Crawlers]<img width="746" height="301" alt="image" src="https://github.com/user-attachments/assets/ce26253c-5a1b-4aa7-bb22-f12653278065" />
+<img width="746" height="301" alt="image" src="https://github.com/user-attachments/assets/ce26253c-5a1b-4aa7-bb22-f12653278065" />
 
 
 Automatically updates the Glue Data Catalog after every Silver load.
@@ -117,7 +117,7 @@ Automatically updates the Glue Data Catalog after every Silver load.
 
 # Databricks Gold Layer
 
-![Databricks Job]<img width="443" height="353" alt="image" src="https://github.com/user-attachments/assets/2428d9ab-a62f-4a1d-9a9f-11784302f892" />
+<img width="443" height="353" alt="image" src="https://github.com/user-attachments/assets/2428d9ab-a62f-4a1d-9a9f-11784302f892" />
 
 
 Creates business-ready Gold tables from Silver Delta tables.
@@ -126,7 +126,7 @@ Creates business-ready Gold tables from Silver Delta tables.
 
 # Amazon Athena
 
-![Athena]<img width="957" height="358" alt="image" src="https://github.com/user-attachments/assets/c9794a05-98cb-4436-a98c-35919a5deb2e" />
+<img width="957" height="358" alt="image" src="https://github.com/user-attachments/assets/c9794a05-98cb-4436-a98c-35919a5deb2e" />
 
 Queries Silver data using the Glue Data Catalog.
 
