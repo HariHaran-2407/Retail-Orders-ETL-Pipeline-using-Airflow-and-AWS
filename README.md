@@ -1,4 +1,4 @@
-# Retail Sales Data Engineering Pipeline
+# Retail Orders Data Engineering Pipeline
 
 An end-to-end cloud-native Data Engineering project implementing the **Medallion Architecture (Bronze, Silver, Gold)** using AWS, Apache Airflow, AWS Glue, PySpark, Delta Lake, Databricks, and Amazon Athena.
 
